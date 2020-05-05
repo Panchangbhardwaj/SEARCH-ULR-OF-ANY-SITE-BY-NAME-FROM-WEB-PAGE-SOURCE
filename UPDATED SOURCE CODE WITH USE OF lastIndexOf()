@@ -1,0 +1,53 @@
+
+
+import edu.duke.*;
+import java.util.Scanner;
+import java.lang.Object;
+public class Part4 {
+    public boolean twoOccurrences(String stringa,String stringb)
+        {
+    int first = -1;
+           int second = -1;
+           int lengthOfa = -1;
+           first = stringb.indexOf(stringa);
+           lengthOfa = stringa.length();
+           second = stringb.indexOf(stringa,first + lengthOfa);
+           if((first != -1) &&  (second != -1)){
+               return true;
+           }
+           return false;
+}
+    public void findurl(String url,String search)
+    {
+        String temp, se;
+        String result = "";
+        se = search.toLowerCase();
+        int start, end ;
+        int idxyt = -1;
+      URLResource ur = new URLResource(url);
+    for (String s : ur.lines()) {
+        temp = s.toLowerCase();
+        idxyt = temp.indexOf(se);
+        if(idxyt != -1)
+        {
+                start = s.lastIndexOf("\"",idxyt);
+                end = s.indexOf("\"",idxyt);
+                result = s.substring(start+1,end);
+                System.out.println(result);
+                
+        }   
+        
+    }
+
+}
+public void main()
+{   Scanner in = new Scanner(System.in);
+    String urle;
+    String search;
+    System.out.println("ENTER THE URL :");
+    urle = in.nextLine();
+    System.out.println("ENTER THE SEARCH TERM :");
+    search = in.nextLine();
+    findurl(urle,search);
+ }
+}
