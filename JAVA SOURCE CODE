@@ -1,0 +1,79 @@
+
+
+import edu.duke.*;
+import java.util.Scanner;
+import java.lang.Object;
+public class Part4 {
+    public boolean twoOccurrences(String stringa,String stringb)
+        {
+    int first = -1;
+           int second = -1;
+           int lengthOfa = -1;
+           first = stringb.indexOf(stringa);
+           lengthOfa = stringa.length();
+           second = stringb.indexOf(stringa,first + lengthOfa);
+           if((first != -1) &&  (second != -1)){
+               return true;
+           }
+           return false;
+}
+    public void findurl(String url,String search)
+    {
+        String temp, se;
+        String result = "";
+        se = search.toLowerCase();
+        int start, end ;
+        boolean check = false;
+        int idxyt = -1;
+      URLResource ur = new URLResource(url);
+    for (String s : ur.lines()) {
+        temp = s.toLowerCase();
+        idxyt = temp.indexOf(se);
+        if(idxyt != -1)
+        {
+            start = s.indexOf("\"");
+            end = s.lastIndexOf("\"");
+            result = s.substring(start+1,end);
+            String tocheck = s.substring(start,end);
+            check = twoOccurrences("\"",tocheck);
+            if(check == true)
+            {  int flag =1;
+                int test;
+                String finalr;
+                tocheck = s.substring(start,end+1);
+                do{
+                    end = s.indexOf("\"",start+1);
+                    result = temp.substring(start+1,end);
+                    finalr = s.substring(start+1,end);
+                    test = result.indexOf(se);
+                    if( test == -1)
+                    {
+                        start = end ;
+                    }
+                    else
+                    {
+                        System.out.println(finalr);
+                        flag = 0;
+                    }
+                  }while(flag == 1);
+                
+            }
+            else
+            {
+                System.out.println(result);
+            }
+        }
+    }
+
+}
+public void main()
+{   Scanner in = new Scanner(System.in);
+    String urle;
+    String search;
+    System.out.println("ENTER THE URL :");
+    urle = in.nextLine();
+    System.out.println("ENTER THE SEARCH TERM :");
+    search = in.nextLine();
+    findurl(urle,search);
+ }
+}
